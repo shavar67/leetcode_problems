@@ -1,9 +1,19 @@
 package problems;
 
+import java.util.Arrays;
+
 public class ReverseVowel {
 
 
     public static void main(String[] args) {
+
+        ReverseVowel _reverse = new ReverseVowel();
+         String s = "codeleet";
+        int [] indices = new int[]{4,5,6,7,0,2,1,3};
+        for (String string : _reverse.restoreString(s, indices)) {
+            System.out.print(string);
+        }
+
 
     }
   /*
@@ -55,6 +65,7 @@ Return the running sum of nums.
         String [] results = new String[indices.length];
         for (int i = 0; i < indices.length; i++) {
             results[indices[i]] = String.valueOf(s.charAt(i));
+
 
         }
 

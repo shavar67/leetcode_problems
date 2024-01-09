@@ -6,42 +6,56 @@ public class TargetArray {
 
 
     public static void main(String[] args) {
+        String input = "aabcccccaaa";
+        System.out.println("Text to compress: " + input +"\n");
+        String output = compress(input);
+        System.out.println("Compressing.....\nCompressed text: " + output+"\n" );
 
-        char[] array = {'a', ' ', 'b'};
-        System.out.println(replaceSpecialChar(array));
-        System.out.println(compress("aabcccccaaa"));
+        System.out.println("Decompressing....\nDecompressed text: " + decompressText(output));
     }
-
-
-
     public static String replaceSpecialChar(char[] array) {
-        String output = "";
+        StringBuilder output = new StringBuilder();
 
-        for (int i = 0; i < array.length; i++) {
+        int i = 0;
+        while (i < array.length) {
             if (array[i] == ' ') {
-                output += "%20";
+                output.append("%20");
 
             } else {
-                output += array[i];
+                output.append(array[i]);
             }
 
+            i++;
         }
-        return output;
+        return output.toString();
 
     }
-
     public static String compress(String input) {
         int counter = 1;
-        String results = "";
-        if (input.length() == 0) return input;
+        StringBuilder results = new StringBuilder();
+        if (input.isEmpty()) return input;
         for (int i = 0; i < input.length() - 1; i++) {
             if (input.charAt(i) == input.charAt(i + 1) && i+1 != input.length()-1) {
                 counter++;
             } else {
-                 results += input.charAt(i) + "" + counter;
+                 results.append(input.charAt(i)).append(counter);
                 counter = 1;
             }
         }
-        return input.length() > results.length() ? results : input;
+        return input.length() > results.length() ? results.toString() : input;
     }
+    public static String decompressText(String text){
+        String[] characters = text.split("(?<=\\d)");
+        StringBuilder word = new StringBuilder();
+        for (int i = 0, charactersLength = characters.length; i < charactersLength; i++) {
+            String character = characters[i];
+            int j = 0;
+            while (j < Integer.parseInt(String.valueOf(character.charAt(1)))) {
+                word.append(character.charAt(0));
+                j++;
+            }
+        }
+        return word.toString();
+    }
+
 }
